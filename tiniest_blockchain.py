@@ -26,7 +26,7 @@ class Block:
         sha = hasher.sha256()
         sha.update(str(self.index).encode('utf-8') + 
            str(self.timestamp).encode('utf-8') + 
-           str(self.data).encode('utf-8') + 
+           str(self.data).encode('utf-8') +     
            str(self.previous_hash).encode('utf-8'))
         return sha.hexdigest()
     
@@ -35,7 +35,12 @@ class Block:
 
 def create_genesis_block():
     #Manually construct a block with zero index and arbitrary previous hash
-    return Block(0,date.datetime.now(),"Genesis Block","0")
+    new_block_data = {
+    "proof-of-work": 0,
+    "transactions": []
+  }
+
+    return Block(0,date.datetime.now(),new_block_data,"0")
 
 def next_block(last_block):
     this_index = last_block.index + 1
@@ -51,7 +56,7 @@ blockchain = [create_genesis_block()]
 previous_block = blockchain[0]
 
 #Let the number of blocks be twenty
-num_of_blocks = 20
+num_of_blocks = 30
 
 #Add blocks to chain
 
